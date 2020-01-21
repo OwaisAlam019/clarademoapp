@@ -1,0 +1,50 @@
+<!doctype html>
+<meta charset="utf-8">
+<script src="https://clara.io/js/claraplayer.min.js"></script>
+
+<body>
+    <div id="content">
+        <div id="player">
+            <div class="claraplayer"
+                style="position: relative; inset: 0px; height: 100%; width: 100%; background-image: none; background-repeat: no-repeat; background-size: auto 100%; background-position: center center; box-sizing: border-box; background-color: transparent; overflow: hidden;">
+                <div style="position: relative; display: block;"><canvas width="698" height="498"
+                        style="width: 698px; height: 498px;"></canvas></div><span
+                    style="position: absolute; left: 5px; right: 5px; bottom: 5px; display: flex; flex-wrap: nowrap; height: 54px; pointer-events: none;">
+                    <!-- <style>
+                        div.claraplayer ul.tools li:not(.active):hover svg path {
+                            fill: #C08618;
+                        }
+                    </style> -->
+
+                </span>
+            </div>
+        </div>
+        <div id="buttons"></div>
+        <p><u>Clara.io demo resources:</u></p>
+    </div>
+
+    <script>
+        // var sceneId = '065da178-cd3f-4fe9-bebb-91b663b16f92'
+        var sceneId = 'ad72a270-1c26-47f7-ae7d-30e1199be1b0'
+        var api = claraplayer('player');
+        api.sceneIO.fetchAndUse(sceneId);
+        api.on('loaded', function () {
+            var materials = api.scene.getAll({ type: 'Material', property: 'name' });
+            console.log(materials)
+            for (var id in materials) {
+                console.log(id)
+                var button = document.createElement('button');
+                button.innerText = materials[id];
+                button.onclick = onClick(id);
+                document.getElementById('buttons').appendChild(button);
+            }
+            // document.getElementById('baseScene').setAttribute('href', 'https://clara.io/view/' + sceneId);
+        });
+
+        function onClick(id) {
+            return function (ev) {
+                return api.scene.set({ name: 'tshirt', plug: 'Material', property: 'reference' }, id)
+            }
+        }
+    </script>
+</body>
