@@ -1,32 +1,40 @@
 <!doctype html>
 <meta charset="utf-8">
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <script src="https://clara.io/js/claraplayer.min.js"></script>
-
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"  ></script>
+<style>
+    a[href="https://threekit.com/"]{
+        display: none;
+    };
+    .btn-info {
+        color: black;
+        background-color: darkgoldenrod;
+    }
+</style>
 <body>
     <div id="content">
-        <div id="player">
+        <div id="clara-embed" style="width: 800px; height: 800px;"></div>
+        <!-- <div id="player" class="claraplayer">
+            <canvas width="500" height="500" style="width: 500px; height: 500px;">
+
+            </canvas>
             <div class="claraplayer"
                 style="position: relative; inset: 0px; height: 100%; width: 100%; background-image: none; background-repeat: no-repeat; background-size: auto 100%; background-position: center center; box-sizing: border-box; background-color: transparent; overflow: hidden;">
-                <div style="position: relative; display: block;"><canvas width="698" height="498"
-                        style="width: 698px; height: 498px;"></canvas></div><span
-                    style="position: absolute; left: 5px; right: 5px; bottom: 5px; display: flex; flex-wrap: nowrap; height: 54px; pointer-events: none;">
-                    <!-- <style>
-                        div.claraplayer ul.tools li:not(.active):hover svg path {
-                            fill: #C08618;
-                        }
-                    </style> -->
-
-                </span>
+                <div style="position: relative; display: block;">
+                    <canvas width="698" height="498">
+                    </canvas>
+                </div>
             </div>
-        </div>
+        </div> -->
         <div id="buttons"></div>
-        <p><u>Clara.io demo resources:</u></p>
+        <!-- <p><u>Clara.io demo resources:</u></p> -->
     </div>
 
     <script>
         // var sceneId = '065da178-cd3f-4fe9-bebb-91b663b16f92'
         var sceneId = 'ad72a270-1c26-47f7-ae7d-30e1199be1b0'
-        var api = claraplayer('player');
+        var api = claraplayer('clara-embed');
         api.sceneIO.fetchAndUse(sceneId);
         api.on('loaded', function () {
             var materials = api.scene.getAll({ type: 'Material', property: 'name' });
@@ -34,11 +42,13 @@
             for (var id in materials) {
                 console.log(id)
                 var button = document.createElement('button');
+                button.className = 'btn btn-info'
+                button.style.marginLeft = '10px'
+                button.style.marginTop = '10px'
                 button.innerText = materials[id];
                 button.onclick = onClick(id);
-                document.getElementById('buttons').appendChild(button);
+               document.getElementById('buttons').appendChild(button);
             }
-            // document.getElementById('baseScene').setAttribute('href', 'https://clara.io/view/' + sceneId);
         });
 
         function onClick(id) {
